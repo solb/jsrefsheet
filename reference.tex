@@ -1,0 +1,180 @@
+\documentclass[12pt,letter]{article}
+\usepackage{amsfonts}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{lmodern}
+\usepackage{multicol}
+\usepackage{textcomp}
+\usepackage[compact]{titlesec}
+
+\newcommand{\texttb}[1]{\texttt{\textbf{#1}}}
+\setlength{\parindent}{0pt}
+\thispagestyle{empty}
+
+\begin{document}
+
+\noindent
+\framebox{
+	\parbox{\textwidth}{
+		\begin{centering}
+		\begin{scriptsize}
+		CS306 \hfill
+		{\small Web Design} \hfill
+		Notes \\
+		2016-2017 Term 2 \\
+		\hfill \\
+		\textbf{\large Reference Sheet: JavaScript and DOM} \\
+		Name: \hrulefill
+		\quad
+		Section: \hrulefill
+		\end{scriptsize}
+		\end{centering}
+	}
+}
+
+\hfill
+
+\begin{multicols}{2}
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Types}
+		Declare a weakly-typed variable: \texttb{var} \textit{variable}
+
+		\begin{tabular}{c c}
+		\underline{Type} & \underline{Literal(s)} \\
+		\texttt{undefined} & \texttb{undefined} * \\
+		\texttt{boolean} & \texttb{true} or \texttb{false} \\
+		\texttt{number} & \texttt{0}, \texttt{-1}, \texttt{2.718}, \texttb{NaN}, etc. \\
+		\texttt{string} & \texttt{\textquotesingle}\textit{text}\texttt{\textquotesingle} or \texttt{"}\textit{text}\texttt{"} $^\dagger$ \\
+		\multicolumn{2}{l}{\hspace{10pt}\texttt{object} \texttt{\{}\textit{variable}\texttt{:} \textit{value}\texttt{,} \textit{var}\texttt{:} \textit{val}\texttt{,} \textellipsis\texttt{\}}} \\
+		& or \texttb{null} \\
+		\texttt{Array} & \texttt{[}\textit{value}\texttt{,} \textit{value}\texttt{,} \textellipsis\texttt{]} $^\ddagger$ \\
+		\end{tabular}
+
+		{\small
+			\ * \hspace{-6pt} All variables are initially set to \texttb{undefined} until a different value is assigned to them.
+
+			$^{\ \dagger}$ Certain characters within \textit{text} must be escaped, \textit{e.g.} \texttt{\textbackslash n}, \texttt{\textbackslash\textquotesingle}, \texttt{\textbackslash"}, and \texttt{\textbackslash\textbackslash}
+
+			$^{\ \ddagger}$ Subtype of object that can also be created by calling constructor: \texttt{\textbf{new} Array(}\textit{length}\texttt{)}
+		}
+	}
+}
+
+\hfill
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Casting}
+		Each cast function expects a single argument and returns a value of the type being cast to.
+
+		\vspace{-12pt}
+		\begin{center}
+		\begin{tabular}{c c}
+		\underline{Type} & \underline{Cast function} \\
+		\texttt{boolean} & \texttt{Boolean()} \\
+		\texttt{number} & \texttt{Number()} $^\dagger$ \\
+		& \texttt{parseFloat()} \\
+		& \texttt{parseInt()} $^\ddagger$ \\
+		\texttt{string} & \texttt{String()} \\
+		\end{tabular}
+		\end{center}
+
+		\vspace{-12pt}
+		{\small
+			$^{\ \dagger}$ Returns \texttt{NaN} as soon as it encounters a non-digit character in a \texttt{string}. Use \texttt{parseFloat()} instead to avoid this behavior.
+
+			$^{\ \ddagger}$ In addition to casting, is often used on \texttt{number}s to truncate their fractional components.
+		}
+	}
+}
+
+\hfill
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Conditionals}
+		\vspace{-6pt}
+		\texttt{\textbf{if}(}\textit{predicate}\texttt{) \{\}} \\
+		\texttt{\textbf{else if}(}\textit{predicate}\texttt{) \{\}} \\
+		\texttt{\textbf{else} \{\}}
+
+		{\small
+			\textit{predicate}s are of type \texttt{boolean}. There may be any number of \texttb{else if}s, but at most one \texttb{else}.
+		}
+	}
+}
+
+\columnbreak
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Operators \& coercion}
+		In order of execution (adjust w/ \texttt{()}s):
+
+		\begin{tabular}{c c c c c}
+		\underline{Op} & \underline{Left} & \underline{Right} & \hspace{-6pt}\underline{Coerce}\hspace{-6pt} & \underline{Result} \\
+		\texttt{.} & \texttt{object} & \textit{variable} & \checkmark & any \\
+		\texttt{[]} & \texttt{object} & \texttt{string} & \checkmark & any \\
+		\hline
+		\texttt{++} & \textit{variable} & N/A & & \texttt{number} \\
+		\texttt{-{}-} & \textit{variable} & N/A & & \texttt{number} \\
+		\hline
+		\texttt{!} & N/A & \texttt{boolean} & \checkmark & \texttt{boolean} \\
+		\hline
+		\texttt{\textasteriskcentered\textasteriskcentered} & \texttt{number} & \texttt{number} & \checkmark & \texttt{number} \\
+		\hline
+		\texttt{\textasteriskcentered} & \texttt{number} & \texttt{number} & \checkmark & \texttt{number} \\
+		\texttt{/} & \texttt{number} & \texttt{number} & \checkmark & \texttt{number} \\
+		\texttt{\%} & \texttt{number} & \texttt{number} & \checkmark & \texttt{number} \\
+		\hline
+		\texttt{+} & ? & ? & $\dagger$ & input \\
+		\texttt{-} & \texttt{number} & \texttt{number} & \checkmark & \texttt{number} \\
+		\hline
+		\texttt{<} & any & any & $\ddagger$ & \texttt{boolean} \\
+		\hline
+		\texttt{==} & any & any & $\wedge$ & \texttt{boolean} \\
+		\texttt{===} & any & any & & \texttt{boolean} \\
+		\texttt{!==} & any & any & & \texttt{boolean} \\
+		\hline
+		\texttt{\&\&} & \texttt{boolean} & \texttt{boolean} & \checkmark & \texttt{boolean} \\
+		\hline
+		\texttt{||} & \texttt{boolean} & \texttt{boolean} & \checkmark & \texttt{boolean} \\
+		\hline
+		\texttt{=} & \textit{variable} & any & & input \\
+		\end{tabular}
+
+		{\small
+			Note that \texttt{+=}, \texttt{-=}, \texttt{*=}, \texttt{/=}, \texttt{\%=}, and \texttt{**=} are also valid assignment operators.
+
+			$^{\ \dagger}$ Supports both \texttt{number}s and \texttt{string}s, but coercion prefers to convert to \texttt{string}.
+
+			$^{\ \ddagger}$ And \texttt{>}, \texttt{<=}, \texttt{>=}. Coercion prefers \texttt{number}.
+
+			$^{\ \wedge}$ And \texttt{!=}. Coercion prefers \texttt{number}. \texttt{object}s are tested for being the \textbf{same} instance.
+		}
+	}
+}
+
+\hfill
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Loops}
+		\vspace{-6pt}
+		\texttt{\textbf{while}(}\textit{predicate}\texttt{) \{\}} \\
+		\texttt{\textbf{for}(}\textit{initializer}\texttt{; }\textit{predicate}\texttt{; }\textit{increment}\texttt{) \{\}} \\
+		{\scriptsize
+			\hspace*{1em} \textit{e.g.} \texttt{\textbf{for}(\textbf{var} count = 1; count <= 5; count++) \{\}}
+
+			\hspace*{1em} \textit{or} \texttt{\textbf{var} count = 0} to start from 0; \texttt{count+=2} to count by 2
+		}
+
+		{\small
+			\textit{predicate}s are of type \textbf{boolean}. Both types of loop run the body (everything between the curly braces) as long as \textit{predicate} is \texttt{true}, stopping as soon as it becomes \texttt{false}. Any and all parts of the \texttb{for} loop header may be omitted.
+		}
+	}
+}
+\end{multicols}
+
+\end{document}
