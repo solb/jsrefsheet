@@ -37,6 +37,7 @@
 \begin{multicols}{2}
 \framebox[\linewidth]{
 	\parbox{\linewidth}{
+		\vspace{-6pt}
 		\section*{Types}
 		Declare a weakly-typed variable: \texttb{var} \textit{variable}
 
@@ -65,6 +66,7 @@
 
 \framebox[\linewidth]{
 	\parbox{\linewidth}{
+		\vspace{-6pt}
 		\section*{Casting}
 		Each cast function expects a single argument and returns a value of the type being cast to.
 
@@ -93,6 +95,7 @@
 
 \framebox[\linewidth]{
 	\parbox{\linewidth}{
+		\vspace{-6pt}
 		\section*{Conditionals}
 		\vspace{-6pt}
 		\texttt{\textbf{if}(}\textit{predicate}\texttt{) \{\}} \\
@@ -109,7 +112,9 @@
 
 \framebox[\linewidth]{
 	\parbox{\linewidth}{
+		\vspace{-6pt}
 		\section*{Operators \& coercion}
+		\vspace{-6pt}
 		In order of execution (adjust w/ \texttt{()}s):
 
 		\begin{tabular}{c c c c c}
@@ -117,8 +122,8 @@
 		\texttt{.} & \texttt{object} & \textit{variable} & \checkmark & any \\
 		\texttt{[]} & \texttt{object} & \texttt{string} & \checkmark & any \\
 		\hline
-		\texttt{++} & \textit{variable} & N/A & \checkmark & \texttt{number} \\
-		\texttt{-{}-} & \textit{variable} & N/A & \checkmark & \texttt{number} \\
+		\texttt{++} & \textit{variable} & N/A & \checkmark & \texttt{number}* \\
+		\texttt{-{}-} & \textit{variable} & N/A & \checkmark & \texttt{number}* \\
 		\hline
 		\texttt{!} & N/A & \texttt{boolean} & \checkmark & \texttt{boolean} \\
 		\hline
@@ -141,11 +146,13 @@
 		\hline
 		\texttt{||} & \texttt{boolean} & \texttt{boolean} & \checkmark & \texttt{boolean} \\
 		\hline
-		\texttt{=} & \textit{variable} & any & & input \\
+		\texttt{=} & \textit{variable} & any & & input* \\
 		\end{tabular}
 
 		{\small
 			Note that \texttt{+=}, \texttt{-=}, \texttt{*=}, \texttt{/=}, \texttt{\%=}, and \texttt{**=} are also valid assignment operators.
+
+			\ * Has the side effect of changing \textit{variable}.
 
 			$^{\ \dagger}$ Supports both \texttt{number}s and \texttt{string}s, but coercion prefers to convert to \texttt{string}.
 
@@ -160,6 +167,7 @@
 
 \framebox[\linewidth]{
 	\parbox{\linewidth}{
+		\vspace{-6pt}
 		\section*{Loops}
 		\vspace{-6pt}
 		\texttt{\textbf{while}(}\textit{predicate}\texttt{) \{\}} \\
