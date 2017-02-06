@@ -175,6 +175,199 @@
 		}
 	}
 }
+
+\pagebreak
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Function definitions \& calls}
+		\vspace{-6pt}
+		Can be called from HTML handlers, \textit{e.g.} an \texttt{onclick} or \texttt{onload} attributes on any tag.
+
+		Define: \texttt{\textbf{function} doNothing() \{\}}
+		\\
+		Call: \texttt{doNothing();}
+
+		\vspace{6pt}
+
+		Define: \texttt{\textbf{function} showAverage(foo, bar) \\
+		\hspace*{34pt} \{ alert((first + second)/2); \}}
+		\\
+		Call: \texttt{showAverage(1, 2); //shows 1.5}
+
+		\vspace{6pt}
+
+		Define: \texttt{\textbf{function} average(foo, bar) \\
+		\hspace*{34pt} \{ \textbf{return} (first + second)/2; \}}
+		\\
+		Call: \texttt{alert(average(1, 2)); //1.5}
+	}
+}
+
+\hfill
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Object definitions \& use}
+		Constructor: \texttt{\textbf{function} Subtype(value)} \\
+		\hspace*{64pt} \texttt{\{ \textbf{this}.variable = value; \}}
+
+		Functions: \texttt{Subtype.prototype = \{} \\
+		\hspace*{52pt} \texttt{replace: \textbf{function}(newVal) \{} \\
+		\hspace*{58pt} \texttt{\textbf{var} temp = \textbf{this}.variable;} \\
+		\hspace*{58pt} \texttt{\textbf{this}.variable = newVal;} \\
+		\hspace*{58pt} \texttt{\textbf{return} temp;\},} \\
+		\hspace*{52pt} \texttt{toString: \textbf{function}() \{} \\
+		\hspace*{58pt} \texttt{\textbf{return} \textbf{this}.variable+\textquotesingle K\textquotesingle;\},}
+		\hspace*{52pt} \texttt{\};}
+
+		Construct: \texttt{\textbf{var} grand = \textbf{new} Subtype(1);}
+
+		Update var.: \texttt{grand.variable++; //now 2}
+
+		Call func.: \texttt{alert(grand.replace(3)); //2}
+
+		Convert to \texttt{string}: \texttt{alert(grand); //3K}
+
+		Convert to \texttt{number}: \texttt{parseFloat(grand)} *
+
+		{\small
+			\ * \texttt{Number(grand)} is \texttt{NaN} because all conversions call \texttt{grand.toString()}, which adds a `K' here.
+		}
+	}
+}
+
+\hfill
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Array usage}
+		Create: \texttt{\textbf{var} arr = [\textquotesingle foo\textquotesingle, \textquotesingle bar\textquotesingle];}
+
+		Access first: \texttt{alert(arr[0]);}
+
+		Count elements: \texttt{alert(arr.length);}
+
+		Access last: \texttt{alert(arr[arr.length - 1]);}
+
+		Replace first: \texttt{arr[0] = \textquotesingle foobar\textquotesingle;}
+
+		Append: \texttt{arr[arr.length] = \textquotesingle baz\textquotesingle;}
+
+		Sort all elements: \texttt{arr.sort();} *
+
+		{\small
+			\ * Compares \texttt{string}s or takes optional comparison function.
+			To sort an array of \texttt{number}s, do: \\
+		}
+		{\scriptsize
+			\hspace*{12pt} \texttt{arr.sort(\textbf{function}(a, b) \{ return a - b; \});}
+		}
+	}
+}
+
+\columnbreak
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\section*{Built-in functions}
+		\vspace{-6pt}
+		\texttt{isNaN(number)}{\scriptsize \textrightarrow\ \texttt{boolean}}
+
+		\texttt{Math.abs(number)}{\scriptsize \textrightarrow\ \texttt{number}}
+
+		\texttt{Math.max(number, number)}{\scriptsize \textrightarrow\ \texttt{number}}
+
+		\texttt{Math.min(number, number)}{\scriptsize \textrightarrow\ \texttt{number}}
+
+		\texttt{Math.random()}{\scriptsize \textrightarrow\ \texttt{number}}
+		\\
+		\hspace*{1em} Returns a fractional number $\geq$ 0 and $<$ 1 \\
+		\hspace*{1em}{\scriptsize \textit{e.g.} \texttt{parseInt(Math.random() * }\textit{max}\texttt{ - }\textit{min}\texttt{ + 1) + }\textit{min}}
+
+		\texttt{Math.sqrt(number)}{\scriptsize \textrightarrow\ \texttt{number}}
+	}
+}
+
+\hfill
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\vspace{-6pt}
+		\section*{DOM \texttt{window} object}
+		\vspace{-6pt}
+		Can omit the \texttt{window.}\ when calling these:
+
+		\texttt{alert(string)} \hfill
+		\texttt{confirm(string)}{\scriptsize \textrightarrow\ \texttt{boolean}}
+
+		\texttt{prompt(string, \textit{string})}{\scriptsize \textrightarrow\ \texttt{string}}
+		\\
+		\hspace*{1em} First argument is the message \\
+		\hspace*{1em} Second (optional) argument is the default
+	}
+}
+
+\hfill
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\vspace{-6pt}
+		\section*{DOM \texttt{document} object}
+		\vspace{-6pt}
+		Must call as \texttt{document.}\textit{function}\texttt{()}:
+
+		\texttt{getElementsByClassName(string)}{\scriptsize \textrightarrow\ \texttt{object} *}
+		\\
+		\hspace*{1em} Returns an array of all matching elements
+
+		\texttt{getElementsByTagName(string)}{\scriptsize \textrightarrow\ \texttt{object} *}
+
+		\texttt{getElementById(string)}{\scriptsize \textrightarrow\ \texttt{object}}
+
+		\texttt{write(string)}
+		\\
+		\hspace*{1em} Note that this replaces the contents of the whole page if called from within a function!
+
+		\vspace{6pt}
+		{\small
+			\texttt{<form name="fn"><input~name="in"></form>} is also accessible as \texttt{document.fn.in}; this object is an array if multiple tags have this same name.
+			\texttt{ById} and \texttt{ByClassName} select by the \texttt{id} (unique) and \texttt{class} (grouping) HTML attributes.
+
+			\ * Can also be applied to any individual element within the \texttt{document} hierarchy.
+		}
+	}
+}
+
+\hfill
+
+\framebox[\linewidth]{
+	\parbox{\linewidth}{
+		\vspace{-6pt}
+		\section*{DOM \texttt{document} elements}
+		\vspace{-6pt}
+		All the above *'d \texttt{document} functions, plus:
+
+		\texttt{classList.add(string)}
+
+		\texttt{classList.contains(string)}{\scriptsize \textrightarrow\ \texttt{boolean}}
+
+		\texttt{classList.remove(string)}
+
+		\texttt{id} {\scriptsize (\texttt{string})} \hfill
+		\texttt{innerHTML} {\scriptsize (\texttt{string})} \hfill
+		\texttt{style} {\scriptsize (\texttt{object})} $^\dagger$
+
+		\texttt{<input>} tags also support the following:
+
+		\texttt{checked} {\scriptsize (\texttt{boolean})} \hfill
+		\texttt{value} {\scriptsize (\texttt{string})}
+
+		{\small
+			$^{\ \dagger}$ Contains a variable for each CSS property, \textit{e.g.} \texttt{backgroundColor} for \texttt{background-color}.
+		}
+	}
+}
 \end{multicols}
 
 \end{document}
