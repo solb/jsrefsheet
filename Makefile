@@ -1,7 +1,8 @@
 TEX := pdflatex
 RM  := rm -f
 
-reference.pdf:
+.PHONY: all
+all: reference.pdf netreference.pdf
 
 %.pdf: %.tex
 	$(TEX) "$<"

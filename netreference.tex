@@ -1,0 +1,147 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage[compact]{titlesec}
+
+\newcommand{\texttit}[1]{\texttt{\textit{#1}}}
+\newenvironment{itemize*}%
+	{\begin{itemize}%
+		\setlength{\itemsep}{0pt}%
+		\setlength{\parskip}{0pt}%
+		\footnotesize%
+	}%
+	{\end{itemize}}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{-10pt}
+\thispagestyle{empty}
+
+\begin{document}
+
+\noindent
+\framebox{
+	\parbox{\textwidth}{
+		\begin{centering}
+		\begin{scriptsize}
+		CS306 \hfill
+		{\small Web Design} \hfill
+		Notes \\
+		2016--2017 Term 3 \\
+		\hfill \\
+		\textbf{\large Reference Sheet: Node.js and Network Communication} \\
+		Name: \hrulefill
+		\quad
+		Section: \hrulefill
+		\end{scriptsize}
+		\end{centering}
+	}
+} \\
+
+\section*{Debugging}
+
+\texttt{console.log(message)}
+\begin{itemize*}
+\item[] \texttt{message :\ string}
+\item[] Writes a line of text to the browser console or terminal in which Node.js is running
+\end{itemize*}
+
+\section*{Node.js: Server-side JavaScript}
+
+\texttt{require(module)}
+\begin{itemize*}
+\item[] \texttt{module :\ string} \qquad Returns \texttt{object}
+\item[] Loads and returns the library module with the specified name
+\end{itemize*}
+
+\subsection*{Module \texttt{http}}
+
+\vspace{-18pt}
+\begin{multicols}{2}
+\texttt{createServer(handler)}
+\begin{itemize*}
+\item[] \texttt{handler :\ \textnormal{function}} \qquad Returns \texttt{object}
+\item[] Creates a \texttit{server} whose incoming requests are processed by the supplied function:
+\end{itemize*}
+\columnbreak
+\texttt{handler(\textit{request}, \textit{response})}
+\begin{itemize*}
+\item[] \texttt{\textit{request} :\ object \quad \textit{response} :\ object}
+\item[] Called each time a new connection is received; it will be held open until explicitly closed
+\end{itemize*}
+\end{multicols}
+
+\texttt{\textit{server}.listen(port)}
+\begin{itemize*}
+\item[] \texttt{port :\ number}
+\item[] Starts accepting connections on the specified port.
+	Use port 80 to handle \texttt{http://localhost}, or \textit{e.g.}\ port 1024 for \texttt{http://localhost:1024} (must use this or a higher port on Mac OS).
+\end{itemize*}
+
+\texttt{\textit{request}.url}
+\begin{itemize*}
+\item[] \texttt{string}
+\item[] The path to the requested resource (\textit{e.g.}\ file).
+	To strip the leading slash: \texttt{\textit{request}.url.substring(1)}
+\end{itemize*}
+
+\texttt{\textit{response}.end(message)}
+\begin{itemize*}
+\item[] \texttt{message :\ string}
+\item[] Transmits the specified reply and closes the connection
+\end{itemize*}
+
+\subsection*{Module \texttt{url}}
+
+\texttt{parse(url, arguments)}
+\begin{itemize*}
+\item[] \texttt{url :\ string \quad arguments :\ boolean} \qquad Returns \texttt{object}
+\item[] Returns an object that breaks the URL into pieces given by string properties (\textit{e.g.}\ \texttt{pathname} for the path to the resource).
+	If \texttt{arguments} was \texttt{true}, it also contains an object \texttt{query} with a string property for each named argument (\textit{e.g.}\ \texttt{name1} and \texttt{name2} in \texttt{/filename.html?name1=value1\&name2=value2}).
+\end{itemize*}
+
+\subsection*{Module \texttt{fs}}
+
+\texttt{existsSync(path)}
+\begin{itemize*}
+\item[] \texttt{path :\ string} \qquad Returns \texttt{boolean}
+\item[] Reports whether there exists a file at the specified path
+\end{itemize*}
+
+\texttt{readFileSync(path)}
+\begin{itemize*}
+\item[] \texttt{path :\ string} \qquad Returns \texttt{string}
+\item[] Returns a string containing the contents of the file at the specified path.
+	Crashes if it does not exist!
+\end{itemize*}
+
+\section*{XMLHttpRequest: Client-side networking in JavaScript}
+
+\texttt{new XMLHttpRequest()}
+\begin{itemize*}
+\item[] Returns \texttt{object}
+\item[] Constructs a bidirectional network \texttit{connection}
+\end{itemize*}
+
+\texttt{\textit{connection}.open(method, url)}
+\begin{itemize*}
+\item[] \texttt{method :\ string \quad url :\ string}
+\item[] To behave as if the \texttt{url} was entered in the browser's location bar, set \texttt{method} to \texttt{\textquotesingle GET\textquotesingle}.
+\end{itemize*}
+
+\texttt{\textit{connection}.send()}
+\begin{itemize*}
+\item[] Transmits the request to the server.
+	Call after \texttt{open()}.
+\end{itemize*}
+
+\texttt{\textit{connection}.onreadystatechange}
+\begin{itemize*}
+\item[] Set to a handler function to be called each time progress is made.
+	Once \texttt{\textit{connection}.readyState} is \texttt{XMLHttpRequest.DONE}, the string \texttt{\textit{connection}.responseText} contains the server's reply.
+\end{itemize*}
+
+\end{document}
